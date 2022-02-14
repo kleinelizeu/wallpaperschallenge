@@ -14,12 +14,11 @@ class _WallpapersPageState extends State<WallpapersPage>
   final TextEditingController _searchController = TextEditingController();
 
   TabController _tabController;
-  final _homeController = Modular.get<WallpapersBloc>();
+  final _controller = Modular.get<WallpapersBloc>();
 
   @override
   void initState() {
-    // _homeController.getTest();
-    _homeController.fetchWallpapers();
+    _controller.fetchWallpapers();
     _tabController = new TabController(
       vsync: this,
       initialIndex: 0,
@@ -30,7 +29,7 @@ class _WallpapersPageState extends State<WallpapersPage>
 
   @override
   void dispose() {
-    _homeController.dispose();
+    _controller.dispose();
     _tabController.dispose();
     super.dispose();
   }
@@ -66,13 +65,13 @@ class _WallpapersPageState extends State<WallpapersPage>
             ),
             Expanded(
               child: _searchController.text.isNotEmpty
-                  ? wallpaperGrid(_homeController.searchOut)
+                  ? wallpaperGrid(_controller.searchOut)
                   : TabBarView(
                       controller: _tabController,
                       children: <Widget>[
-                        wallpaperGrid(_homeController.wallpaperTrendingOut),
-                        wallpaperGrid(_homeController.wallpaperNewOut),
-                        wallpaperGrid(_homeController.wallpaperPopularOut),
+                        wallpaperGrid(_controller.wallpaperTrendingOut),
+                        wallpaperGrid(_controller.wallpaperNewOut),
+                        wallpaperGrid(_controller.wallpaperPopularOut),
                       ],
                     ),
             )
@@ -125,7 +124,7 @@ class _WallpapersPageState extends State<WallpapersPage>
                   hintStyle: TextStyle(color: gray)),
               onSubmitted: (value) {
                 if (_searchController.text.isNotEmpty) {
-                  _homeController.fetchWallpapers(value);
+                  _controller.fetchWallpapers(value);
                 }
                 return null;
               },
@@ -136,9 +135,9 @@ class _WallpapersPageState extends State<WallpapersPage>
     );
   }
 
-  Widget wallpaperGrid(var _homeController) {
+  Widget wallpaperGrid(var _controller) {
     return StreamBuilder(
-        stream: _homeController,
+        stream: _controller,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(

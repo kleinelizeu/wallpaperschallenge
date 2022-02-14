@@ -22,9 +22,9 @@ environment:
 
 dependencies:
   dio: 
-  equatable: 
-  bloc_test: 
-  bloc: 
+ # equatable: 
+ # bloc_test: 
+ # bloc: 
   flutter_modular: 
   rxdart:
   image_gallery_saver:

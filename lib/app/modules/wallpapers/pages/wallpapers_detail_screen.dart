@@ -5,7 +5,7 @@ import 'package:wallpapers_challenge/app/modules/wallpapers/bloc/wallpapers_bloc
 import 'package:wallpapers_challenge/app/shared/utils/constants.dart';
 
 class WallpaperDetailScreen extends StatelessWidget {
-  final _homeController = Modular.get<WallpapersBloc>();
+  final _controller = Modular.get<WallpapersBloc>();
   final wallpaper;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -71,9 +71,11 @@ class WallpaperDetailScreen extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   try {
-                    _homeController.download(wallpaper);
+                    _controller.download(wallpaper);
                     _onSucess();
-                  } catch (e) {}
+                  } catch (e) {
+                    _onFail();
+                  }
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -111,6 +113,16 @@ class WallpaperDetailScreen extends StatelessWidget {
       SnackBar(
         content: Text("Imagem salva na galeria!"),
         backgroundColor: Colors.green,
+        duration: Duration(seconds: 4),
+      ),
+    );
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Erro ao salvar imagem!"),
+        backgroundColor: Colors.red,
         duration: Duration(seconds: 4),
       ),
     );
