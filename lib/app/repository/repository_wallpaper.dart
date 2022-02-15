@@ -1,8 +1,11 @@
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:wallpapers_challenge/app/modules/wallpapers/exceptions/dio_exceptions.dart';
+import 'package:wallpapers_challenge/app/modules/wallpapers/widgets/wallpapers_error_dialog.dart';
 import 'package:wallpapers_challenge/app/shared/utils/constants.dart';
 
 class RepositoryWallpaper {
@@ -10,15 +13,18 @@ class RepositoryWallpaper {
 
   RepositoryWallpaper({this.dio});
 
-  Future getWallpapers(query) async {
+  Future getWallpapers(query, [BuildContext ctx]) async {
     try {
       var response = await dio.get(URL + '$query',
-          options: Options(headers: {'Authorization': API_KEY}));
+          options: Options(
+            headers: {'Authorization': API_KEY},
+          ));
 
       return response.data;
     } catch (e) {
-      print('$e');
-      throw Exception("Erro na busca");
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      //  wallpapersErrorDialog(ctx, errorMessage);
+      print(errorMessage);
     }
   }
 

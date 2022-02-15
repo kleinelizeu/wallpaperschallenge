@@ -142,7 +142,7 @@ class _WallpapersPageState extends State<WallpapersPage>
           if (snapshot.hasError) {
             return Center(
               child: Text(
-                '${snapshot.error}',
+                'Ocorreu um erro',
                 style: TextStyle(color: Colors.red),
               ),
             );
