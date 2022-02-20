@@ -4,8 +4,8 @@ import 'package:transparent_image/transparent_image.dart';
 
 class WallpapersTile extends StatelessWidget {
   const WallpapersTile({
-    Key key,
-    @required this.wallpaper,
+    Key? key,
+    required this.wallpaper,
   }) : super(key: key);
 
   final wallpaper;

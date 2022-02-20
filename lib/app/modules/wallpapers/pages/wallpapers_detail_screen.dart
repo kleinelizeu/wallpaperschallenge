@@ -10,8 +10,8 @@ class WallpaperDetailScreen extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   WallpaperDetailScreen({
-    Key key,
-    @required this.wallpaper,
+    Key? key,
+    required this.wallpaper,
   }) : super(key: key);
 
   @override
@@ -109,7 +109,7 @@ class WallpaperDetailScreen extends StatelessWidget {
   }
 
   void _onSucess() {
-    _scaffoldKey.currentState.showSnackBar(
+    _scaffoldKey.currentState!.showSnackBar(
       SnackBar(
         content: Text("Imagem salva na galeria!"),
         backgroundColor: Colors.green,
@@ -119,7 +119,7 @@ class WallpaperDetailScreen extends StatelessWidget {
   }
 
   void _onFail() {
-    _scaffoldKey.currentState.showSnackBar(
+    _scaffoldKey.currentState!.showSnackBar(
       SnackBar(
         content: Text("Erro ao salvar imagem!"),
         backgroundColor: Colors.red,

@@ -6,18 +6,13 @@ import 'package:wallpapers_challenge/app/app_widget.dart';
 
 import 'modules/wallpapers/wallpapers_module.dart';
 
-class AppModule extends MainModule {
+class AppModule extends Module {
   @override
   List<Bind> get binds => [];
 
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter('/', child: (_, args) => SplashPage()),
-        ModularRouter('/wallpapers', module: WallpapersModule()),
+  List<ModularRoute> get routes => [
+        ChildRoute('/', child: (_, args) => SplashPage()),
+        ModuleRoute('/wallpapers/', module: WallpapersModule()),
       ];
-
-  @override
-  Widget get bootstrap => AppWidget();
-
-  static Inject get to => Inject<AppModule>.of();
 }

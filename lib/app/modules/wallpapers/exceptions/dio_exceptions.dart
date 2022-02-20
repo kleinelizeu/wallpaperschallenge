@@ -3,23 +3,23 @@ import 'package:dio/dio.dart';
 class DioExceptions implements Exception {
   DioExceptions.fromDioError(DioError dioError) {
     switch (dioError.type) {
-      case DioErrorType.CANCEL:
+      case DioErrorType.cancel:
         message = "Request to API server was cancelled";
         break;
-      case DioErrorType.CONNECT_TIMEOUT:
+      case DioErrorType.connectTimeout:
         message = "Connection timeout with API server";
         break;
-      case DioErrorType.DEFAULT:
+      case DioErrorType.other:
         message = "Connection to API server failed due to internet connection";
         break;
-      case DioErrorType.RECEIVE_TIMEOUT:
+      case DioErrorType.receiveTimeout:
         message = "Receive timeout in connection with API server";
         break;
-      case DioErrorType.RESPONSE:
+      case DioErrorType.response:
         message =
-            _handleError(dioError.response.statusCode, dioError.response.data);
+            _handleError(dioError.response!.statusCode, dioError.response!.data);
         break;
-      case DioErrorType.SEND_TIMEOUT:
+      case DioErrorType.sendTimeout:
         message = "Send timeout in connection with API server";
         break;
       default:
@@ -28,9 +28,9 @@ class DioExceptions implements Exception {
     }
   }
 
-  String message;
+  String? message;
 
-  String _handleError(int statusCode, dynamic error) {
+  String? _handleError(int? statusCode, dynamic error) {
     switch (statusCode) {
       case 400:
         return 'Bad request';
@@ -44,5 +44,5 @@ class DioExceptions implements Exception {
   }
 
   @override
-  String toString() => message;
+  String toString() => message!;
 }

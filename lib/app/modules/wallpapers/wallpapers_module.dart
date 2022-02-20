@@ -7,20 +7,19 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'pages/wallpapers_page.dart';
 
-class WallpapersModule extends ChildModule {
+class WallpapersModule extends Module {
   @override
   List<Bind> get binds => [
         Bind((i) => WallpapersBloc(repository: i.get<RepositoryWallpaper>())),
         Bind((i) => RepositoryWallpaper(dio: i.get<Dio>())),
         Bind((i) => Dio()),
       ];
-
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter('/', child: (_, args) => WallpapersPage()),
-        ModularRouter('/wallpaper-detail',
+  List<ModularRoute> get routes => [
+        ChildRoute('/', child: (_, args) => WallpapersPage()),
+        ChildRoute('/wallpaper-detail',
             child: (_, args) => WallpaperDetailScreen(wallpaper: args.data)),
       ];
 
-  static Inject get to => Inject<WallpapersModule>.of();
+//  static Inject get to => Inject<WallpapersModule>.of();
 }

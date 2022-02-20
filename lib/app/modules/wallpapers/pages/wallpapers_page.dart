@@ -13,7 +13,7 @@ class _WallpapersPageState extends State<WallpapersPage>
     with SingleTickerProviderStateMixin {
   final TextEditingController _searchController = TextEditingController();
 
-  TabController _tabController;
+  late TabController _tabController;
   final _controller = Modular.get<WallpapersBloc>();
 
   @override
@@ -40,7 +40,7 @@ class _WallpapersPageState extends State<WallpapersPage>
     var w = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: secondaryBlue,
-      appBar: _appBar(h, w),
+      appBar: _appBar(h, w) as PreferredSizeWidget?,
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -154,14 +154,8 @@ class _WallpapersPageState extends State<WallpapersPage>
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.data["photos"].length == 0) {
-            return Center(
-                child: Text(
-              "Ops! Wallpaper não encontrado",
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-            ));
           } else {
-            var wallpaper = snapshot.data;
+            dynamic wallpaper = snapshot.data;
             return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 20,

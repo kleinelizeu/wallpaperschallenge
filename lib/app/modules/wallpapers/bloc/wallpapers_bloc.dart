@@ -8,7 +8,7 @@ class WallpapersBloc {
   final _controllerWallpaperNew = BehaviorSubject();
   final _controllerWallpaperPopular = BehaviorSubject();
   final _controllerSearch = BehaviorSubject();
-  final RepositoryWallpaper repository;
+  final RepositoryWallpaper? repository;
   WallpapersBloc({this.repository});
 
   Sink get wallpaperTrending => _controllerWallpaperTrending.sink;
@@ -23,14 +23,14 @@ class WallpapersBloc {
   Stream get searchOut => _controllerSearch.stream;
 
   void fetchWallpapers([query]) async {
-    repository.getWallpapers("Trending").then(wallpaperTrending.add);
-    repository.getWallpapers("New").then(wallpaperNew.add);
-    repository.getWallpapers("Popular").then(wallpaperPopular.add);
-    repository.getWallpapers(query).then(wallpaperSearch.add);
+    repository!.getWallpapers("Trending").then(wallpaperTrending.add);
+    repository!.getWallpapers("New").then(wallpaperNew.add);
+    repository!.getWallpapers("Popular").then(wallpaperPopular.add);
+    repository!.getWallpapers(query).then(wallpaperSearch.add);
   }
 
   void download(wallpaper) async {
-    repository.wallpaperDownload(wallpaper);
+    repository!.wallpaperDownload(wallpaper);
   }
 
   void dispose() {

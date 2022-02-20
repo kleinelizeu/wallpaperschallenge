@@ -9,34 +9,34 @@ import 'package:wallpapers_challenge/app/modules/wallpapers/widgets/wallpapers_e
 import 'package:wallpapers_challenge/app/shared/utils/constants.dart';
 
 class RepositoryWallpaper {
-  final Dio dio;
+  final Dio? dio;
 
   RepositoryWallpaper({this.dio});
 
-  Future getWallpapers(query, [BuildContext ctx]) async {
+  Future getWallpapers(query, [BuildContext? ctx]) async {
     try {
-      var response = await dio.get(URL + '$query',
+      var response = await dio!.get(URL + '$query',
           options: Options(
             headers: {'Authorization': API_KEY},
           ));
 
       return response.data;
-    } catch (e) {
+    } on DioError catch (e) {
       final errorMessage = DioExceptions.fromDioError(e).toString();
-      //  wallpapersErrorDialog(ctx, errorMessage);
+      // wallpapersErrorDialog(ctx, errorMessage);
       print(errorMessage);
     }
   }
 
   Future wallpaperDownload(String wallpaper) async {
     try {
-      var response = await dio.get(
+      var response = await dio!.get(
         wallpaper,
         options: Options(
           responseType: ResponseType.bytes,
           followRedirects: false,
           validateStatus: (status) {
-            return status < 500;
+            return status! < 500;
           },
           headers: {'Authorization': API_KEY},
         ),

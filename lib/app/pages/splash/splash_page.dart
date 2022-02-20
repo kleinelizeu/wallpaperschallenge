@@ -11,7 +11,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
-      Modular.to.pushReplacementNamed('/wallpapers');
+      Modular.to.pushReplacementNamed('/wallpapers/');
     });
     super.initState();
   }
